@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sqlMap_MDM_genXml">
+<!-- 
+	<typeAlias alias="xmlAlias" type="com.viesgo.componentes.MDM_DTO"/>
+
+	<resultMap id="xmlDtoId" class="xmlAlias" >
+		<result property="Version" column="Version" /> 
+		<result property="XMLContenido" column="XMLContenido" jdbcType="java.lang.byte[]"/>
+		<result property="XMLNombreFichero" column="XMLNombreFichero" />
+	</resultMap> -->
+
+	<statement id="VALIDATION_QUERY" resultClass="java.lang.String">
+		/* VALIDATION_QUERY */
+		SELECT 1 FROM dual
+	</statement>
+	
+	<statement id="recuperarConsulta" parameterClass="java.lang.Integer" resultClass="com.viesgo.componentes.RecuperarConsulta_DTO">
+		SELECT CONSULTA FROM CONSULTAS_EIP WHERE ID_CONSULTA = #id_consulta#
+	</statement>
+
+	<!-- Recupera lista de facturas -->
+	<statement id="recuperaDatosMDM" parameterClass="com.viesgo.componentes.RecuperarConsulta_DTO" resultClass="com.viesgo.componentes.MDM_DTO">
+		declare
+		myClobVar varchar2(32767) := $consulta$
+		begin		
+		select Version as Version, XMLContenido as XMLContenido, XMLNombreFichero as XMLNombreFichero from (myClobVar)
+		end
+	</statement>
+</sqlMap>
